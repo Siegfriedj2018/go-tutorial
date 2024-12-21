@@ -1,2 +1,2 @@
-**Go Tutorial
-Just learning some go lang 
+Go Tutorial
+Just learning some go lang
