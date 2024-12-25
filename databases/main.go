@@ -22,7 +22,7 @@ func main() {
 	// Capture connection properties
 	cfg := mysql.Config{
 		User:		"root",
-		Passwd: "$h@d0wF1r3Pr0",
+		Passwd: "",  // insert root password
 		Net:		"tcp",
 		Addr: 	"127.0.0.1:3306",
 		DBName: "recordings",
