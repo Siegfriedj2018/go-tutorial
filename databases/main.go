@@ -2,8 +2,8 @@ package main
 
 import (
 	"database/sql"
-	"log"
 	"fmt"
+	"log"
 
 	"github.com/go-sql-driver/mysql"
 )
@@ -12,7 +12,7 @@ import (
 var db *sql.DB
 
 type Album struct {
-	ID		 int64
+	ID     int64
 	Title  string
 	Artist string
 	Price  float32
@@ -23,7 +23,7 @@ type Album struct {
 func albumsByArtist(name string) ([]Album, error) {
 	// An albums slice to hold data from returned rows.
 	var albums []Album
-	
+
 	// using query to execute the select statement to query albums
 	rows, err := db.Query("SELECT * FROM album WHERE artist = ?", name)
 	if err != nil {
@@ -88,8 +88,8 @@ func albumByID(id int64) (Album, error) {
 // returning the album id of the new entry
 
 func addAlbum(alb Album) (int64, error) {
-	result, err := db.Exec("INSERT INTO album (title, artist, price) VALUES (?, ?, ?)", 
-													alb.Title, alb.Artist, alb.Price)
+	result, err := db.Exec("INSERT INTO album (title, artist, price) VALUES (?, ?, ?)",
+		alb.Title, alb.Artist, alb.Price)
 	if err != nil {
 		return 0, fmt.Errorf("addAlbum: %v", err)
 	}
@@ -103,10 +103,10 @@ func addAlbum(alb Album) (int64, error) {
 func main() {
 	// Capture connection properties
 	cfg := mysql.Config{
-		User:		"root",
-		Passwd: "",  // insert root password
-		Net:		"tcp",
-		Addr: 	"127.0.0.1:3306",
+		User:   "root",
+		Passwd: "", // insert root password
+		Net:    "tcp",
+		Addr:   "127.0.0.1:3306",
 		DBName: "recordings",
 	}
 
@@ -131,26 +131,24 @@ func main() {
 		fmt.Println(alb)
 	}
 	if err2 != nil {
-		 log.Fatal(err2)
+		log.Fatal(err2)
 	}
 
-	
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("John Coltrane albums found: %v\n", albums)
-	
+
 	// Hard-coded id 2 here to test the query
 	if err3 != nil {
 		log.Fatal(err3)
 	}
 	fmt.Printf("Album found: %v\n", alb)
 
-
 	albID, err := addAlbum(Album{
-		Title:	"Endless Behavior",
-		Artist:	"Starset",
-		Price: 	49.99,
+		Title:  "Endless Behavior",
+		Artist: "Starset",
+		Price:  49.99,
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -162,8 +160,7 @@ func main() {
 		fmt.Println(albs)
 	}
 	if err2 != nil {
-		 log.Fatal(err4)
+		log.Fatal(err4)
 	}
-
 
 }
