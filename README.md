@@ -1,3 +1,3 @@
 # Go Tutorial
 
-Just learning some go lang
+Just learning some go lang 😎
