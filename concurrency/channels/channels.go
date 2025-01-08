@@ -10,7 +10,20 @@ func sum (s []int, c chan int) {
 	c <- sum // send sum to c
 }
 
+
+
 func main() {
+	// Buffered channels example
+	// ch := make(chan int, 3)
+	// ch <- 1
+	// ch <- 2
+	// ch <- 3
+
+	// fmt.Println(<-ch)
+	// fmt.Println(<-ch)
+	// fmt.Println(<-ch)
+	// fmt.Println(<-ch)
+
 	s := []int{7, 2, 8, -9, 4, 0}
 
 	c := make(chan int)  // creates the channel
