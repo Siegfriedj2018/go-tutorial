@@ -1,11 +1,11 @@
 package main
 
 import (
-	"bytes"
-	"encoding/json"
-	"fmt"
+	// "bytes"
+	// "encoding/json"
+	// "fmt"
 	"html/template"
-	"io"
+	// "io"
 	"net/http"
 )
 
@@ -19,34 +19,34 @@ func handleHome(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, nil)
 }
 
-func handleMenu(w http.ResponseWriter, r *http.Request) {
-	// Here fetch the menu items from the data server
+// func handleMenu(w http.ResponseWriter, r *http.Request) {
+// 	// Here fetch the menu items from the data server
 
-	// if there is an error, return an internal server error
+// 	// if there is an error, return an internal server error
 
-	// Close the response body when the function returns
+// 	// Close the response body when the function returns
 
-	// Here read the response body
+// 	// Here read the response body
 
-	if err != nil {
-		http.Error(w, "Error reading menu items", http.StatusInternalServerError)
-		return
-	}
+// 	if err != nil {
+// 		http.Error(w, "Error reading menu items", http.StatusInternalServerError)
+// 		return
+// 	}
 
-	var menuItems []MenuItems
-	err = json.Unmarshal(body, &menuItems)
-	if err != nil {
-		http.Error(w, "Error decoding menu items", http.StatusInternalServerError)
-		return
-	}
+// 	var menuItems []MenuItems
+// 	err = json.Unmarshal(body, &menuItems)
+// 	if err != nil {
+// 		http.Error(w, "Error decoding menu items", http.StatusInternalServerError)
+// 		return
+// 	}
 
-	tmpl, err := template.ParseFiles("templates/menu.html")
-	if err != nil {
-		http.Error(w, "Error loading menu page", http.StatusInternalServerError)
-		return
-	}
-	tmpl.Execute(w, menuItems)
-}
+// 	tmpl, err := template.ParseFiles("templates/menu.html")
+// 	if err != nil {
+// 		http.Error(w, "Error loading menu page", http.StatusInternalServerError)
+// 		return
+// 	}
+// 	tmpl.Execute(w, menuItems)
+// }
 
 func handleReviewForm(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("templates/review_form.html")
@@ -57,16 +57,16 @@ func handleReviewForm(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, nil)
 }
 
-func handleReviewSubmission(w http.ResponseWriter, r *http.Request) {
-	// Here parse the form data recieved from the review form
+// func handleReviewSubmission(w http.ResponseWriter, r *http.Request) {
+// 	// Here parse the form data recieved from the review form
 
-	// Here create a new review object from the form data
+// 	// Here create a new review object from the form data
 
-	reviewData, err := json.Marshal(review)
-	if err != nil {
-		http.Error(w, "Error encoding review data", http.StatusInternalServerError)
-		return
-	}
+// 	reviewData, err := json.Marshal(review)
+// 	if err != nil {
+// 		http.Error(w, "Error encoding review data", http.StatusInternalServerError)
+// 		return
+// 	}
 
 	// Here post the review data to the data server
 
@@ -74,41 +74,41 @@ func handleReviewSubmission(w http.ResponseWriter, r *http.Request) {
 	
 	// Close the response body when the function returns
 
-	http.Redirect(w, r, "/review", http.StatusSeeOther)
-}
+// 	http.Redirect(w, r, "/review", http.StatusSeeOther)
+// }
 
-func handleReviews(w http.ResponseWriter, r *http.Request) {
-	// here fetch the reviews from the data server
+// func handleReviews(w http.ResponseWriter, r *http.Request) {
+// 	// here fetch the reviews from the data server
 
-	// If there is an error, return an internal server error
+// 	// If there is an error, return an internal server error
 
-	// Close the response body when the function returns
+// 	// Close the response body when the function returns
 
-	// Here read the response body
+// 	// Here read the response body
 
-	if err != nil {
-		http.Error(w, "Error reading menu items", http.StatusInternalServerError)
-		return
-	}
+// 	if err != nil {
+// 		http.Error(w, "Error reading menu items", http.StatusInternalServerError)
+// 		return
+// 	}
 
-	var reviews []Review
-	err = json.Unmarshal(body, &reviews)
-	if err != nil {
-		http.Error(w, "Error decoding reviews", http.StatusInternalServerError)
-		return
-	}
+// 	var reviews []Review
+// 	err = json.Unmarshal(body, &reviews)
+// 	if err != nil {
+// 		http.Error(w, "Error decoding reviews", http.StatusInternalServerError)
+// 		return
+// 	}
 
-	tmpl, err := template.ParseFiles("templates/reviews.html")
-	if err != nil {
-		http.Error(w, "Error loading reviews page", http.StatusInternalServerError)
-		return
-	}
+// 	tmpl, err := template.ParseFiles("templates/reviews.html")
+// 	if err != nil {
+// 		http.Error(w, "Error loading reviews page", http.StatusInternalServerError)
+// 		return
+// 	}
 
-	tmpl.Execute(w, reviews)
-}
+// 	tmpl.Execute(w, reviews)
+// }
 
-func stringToInt(s string) int {
-	var i int
-	fmt.Sscanf(s, "%d", &i)
-	return i
-}
+// func stringToInt(s string) int {
+// 	var i int
+// 	fmt.Sscanf(s, "%d", &i)
+// 	return i
+// }

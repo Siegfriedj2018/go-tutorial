@@ -1,8 +1,8 @@
 package main
 
-// MenuItem represents a dis on the restaurant menu
+// MenuItem represents a dish on the restaurant menu
 type MenuItem struct {
-	Name string `json:"name"`
+	Name  string `json:"name"`
 	Price string `json:"price"`
 }
 
@@ -10,6 +10,6 @@ type MenuItem struct {
 type Review struct {
 	Name 		 string `json:"name"`
 	Dish 		 string `json:"dish"`
-	Rating 	 int `json:"rating"`
+	Rating 	 int 		`json:"rating"`
 	Comments string `json:"comments"`
 }

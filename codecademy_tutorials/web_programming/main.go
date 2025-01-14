@@ -7,7 +7,8 @@ import (
 
 func main() {
 	// Initialize the server and set up the routes
-
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", handleHome)
 	// serve static files
 	fileServer := http.FileServer(http.Dir("./static"))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
@@ -15,4 +16,8 @@ func main() {
 	log.Println("Starting the server at http://localhost:4001")
 
 	// start the server
+	err := http.ListenAndServe(":4001", mux)
+	if err != nil {
+		log.Fatal("Error occurred while starting the server")
+	}
 }
