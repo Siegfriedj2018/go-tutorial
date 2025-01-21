@@ -9,6 +9,10 @@ func main() {
 	// Initialize the server and set up the routes
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", handleHome)
+	mux.HandleFunc("GET /menu", handleMenu)
+	mux.HandleFunc("GET /reviews", handleReviews)
+	mux.HandleFunc("Get /review", handleReviewForm)
+	mux.HandleFunc("POST /submitReview", handleReviewSubmission)
 	// serve static files
 	fileServer := http.FileServer(http.Dir("./static"))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
