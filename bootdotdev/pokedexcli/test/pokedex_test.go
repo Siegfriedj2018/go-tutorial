@@ -1,7 +1,7 @@
 package test
 
 import (
-	pokedexcli "github.com/siegfriedj2018/bootdotdev/pokedexcli/pokedex"
+	pokedexcli "bootdevproject/pokedexcli/pokedex"
 	"testing"
 )
 

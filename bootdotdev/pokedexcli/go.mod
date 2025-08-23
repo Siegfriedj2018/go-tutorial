@@ -1,3 +1,3 @@
-module github.com/siegfriedj2018/bootdotdev/pokedexcli
+module bootdevproject/pokedexcli
 
 go 1.24.5
