@@ -9,17 +9,23 @@ import (
 	"bootdevproject/pokedexcli/commands"
 )
 
-func StartRepl() {
+func StartRepl(conf *commands.Config) {
+	// nextUrl := "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20"
+	// conf := commands.Config{
+	// 	Next: 		&nextUrl,
+	// 	Previous: nil,
+	// }
+
 	fmt.Println("Welcome to the Pokedex!")
 	scanner := bufio.NewScanner(os.Stdin)
-	for  {
+	for {
 		fmt.Print("Pokedex > ")
 		scanner.Scan()
-		userInput := scanner.Text()
-		cleanedInput := pokedex.CleanInput(userInput)
-		cmd, ok := commands.GetCommands()[cleanedInput[0]]
+		cleanedInput := pokedex.CleanInput(scanner.Text())
+		
+		cmd, ok := commands.GetCommands(conf)[cleanedInput[0]]
 		if ok {
-			err := cmd.Callback()
+			err := cmd.Callback(conf)
 			if err != nil {
 				fmt.Printf("an unexpected error happened: %v\n", err)
 				os.Exit(1)

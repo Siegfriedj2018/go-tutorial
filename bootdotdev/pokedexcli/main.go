@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bootdevproject/pokedexcli/internal"
 	"bootdevproject/pokedexcli/repl"
 )
 
 
 func main() {
-	repl.StartRepl()
+	conf := internal.Connection()
+	repl.StartRepl(conf)
 }

@@ -1,5 +1,6 @@
 package commands
 
-func commandMap() error {
+func CommandMap(conf *Config) error {
+	
 	return nil
 }
