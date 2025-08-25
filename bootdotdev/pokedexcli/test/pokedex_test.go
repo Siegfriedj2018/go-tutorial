@@ -30,7 +30,7 @@ func TestCleanInput(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		actual := pokedexcli.CleanInput(c.input)
+		actual, _ := pokedexcli.CleanInput(c.input)
 		//Check the length of the actual slice against the expected slice
 		// if they don't match, use t.Errorf to print an error mesage
 		// and fail the test

@@ -21,7 +21,7 @@ func StartRepl(conf *commands.Config) {
 	for {
 		fmt.Print("Pokedex > ")
 		scanner.Scan()
-		cleanedInput := pokedex.CleanInput(scanner.Text())
+		cleanedInput, _ := pokedex.CleanInput(scanner.Text())
 		
 		cmd, ok := commands.GetCommands(conf)[cleanedInput[0]]
 		if ok {
@@ -33,8 +33,6 @@ func StartRepl(conf *commands.Config) {
 		}else {
 			fmt.Printf("Unknown Command: %s\n", cleanedInput[0])
 		}
-
-
 	}
 }
 

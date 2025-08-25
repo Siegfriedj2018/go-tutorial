@@ -28,3 +28,7 @@ func Connection() *commands.Config {
 	
 	return conf
 }
+
+func DisplayLocation(conf *commands.Config, url string) error {
+	return nil
+}
