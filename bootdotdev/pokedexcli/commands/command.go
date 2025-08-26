@@ -1,5 +1,6 @@
 package commands
 
+
 type cliCommand struct {
 	Name				string
 	Description string
@@ -16,7 +17,6 @@ type Results struct {
 	Name string `json:"name"`
 	URL  string `json:"url"`
 }
-
 
 func GetCommands(conf *Config) map[string]cliCommand {
 	return map[string]cliCommand{

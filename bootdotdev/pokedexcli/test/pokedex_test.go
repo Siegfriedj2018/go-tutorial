@@ -1,7 +1,7 @@
 package test
 
 import (
-	pokedexcli "bootdevproject/pokedexcli/pokedex"
+	pokedexcli "go-tutorial/bootdotdev/pokedexcli/pokedex"
 	"testing"
 )
 

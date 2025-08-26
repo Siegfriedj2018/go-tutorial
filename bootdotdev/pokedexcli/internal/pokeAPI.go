@@ -1,11 +1,12 @@
 package internal
 
 import (
-	"bootdevproject/pokedexcli/commands"
+	"encoding/json"
 	"io"
 	"log"
 	"net/http"
-	"encoding/json"
+
+	"bootdotdev/pokedexcli/commands"
 )
 
 func Connection() *commands.Config {
@@ -27,8 +28,4 @@ func Connection() *commands.Config {
 	}
 	
 	return conf
-}
-
-func DisplayLocation(conf *commands.Config, url string) error {
-	return nil
 }

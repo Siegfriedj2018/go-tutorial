@@ -1,8 +1,7 @@
 package commands
 
-import(
+import (
 	"fmt"
-	
 )
 
 func CommandHelp(conf *Config) error {

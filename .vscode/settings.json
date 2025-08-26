@@ -1,4 +1,7 @@
 {
   "geminicodeassist.inlineSuggestions.enableAuto": false,
-  "todohighlight.toggleURI": true
+  "todohighlight.toggleURI": true,
+  "cSpell.words": [
+    "pokedexcli"
+  ]
 }

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"bootdevproject/pokedexcli/internal"
-	"bootdevproject/pokedexcli/repl"
+	"go-tutorial/bootdotdev/pokedexcli/internal"
+	"go-tutorial/bootdotdev/pokedexcli/repl"
 )
 
 

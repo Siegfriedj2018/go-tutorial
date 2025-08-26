@@ -5,8 +5,8 @@ import (
 	"bufio"
 	"os"
 
-	"bootdevproject/pokedexcli/pokedex"
-	"bootdevproject/pokedexcli/commands"
+	"go-tutorial/bootdotdev/pokedexcli/pokedex"
+	"go-tutorial/bootdotdev/pokedexcli/commands"
 )
 
 func StartRepl(conf *commands.Config) {
