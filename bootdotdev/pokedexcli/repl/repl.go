@@ -1,21 +1,16 @@
 package repl
 
 import (
-	"fmt"
 	"bufio"
+	"fmt"
 	"os"
 
-	"go-tutorial/bootdotdev/pokedexcli/pokedex"
 	"go-tutorial/bootdotdev/pokedexcli/commands"
+	"go-tutorial/bootdotdev/pokedexcli/pokedex"
 )
 
-func StartRepl(conf *commands.Config) {
-	// nextUrl := "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20"
-	// conf := commands.Config{
-	// 	Next: 		&nextUrl,
-	// 	Previous: nil,
-	// }
-
+func StartRepl() {
+	conf := &commands.Config{}
 	fmt.Println("Welcome to the Pokedex!")
 	scanner := bufio.NewScanner(os.Stdin)
 	for {

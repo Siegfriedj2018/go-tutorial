@@ -8,14 +8,8 @@ type cliCommand struct {
 }
 
 type Config struct {
-	Count    int       `json:"count"`
-	Next     *string   `json:"next"`
-	Previous *string   `json:"previous"`
-	Results  []Results `json:"results"`
-}
-type Results struct {
-	Name string `json:"name"`
-	URL  string `json:"url"`
+	Next			*string
+	Previous 	*string
 }
 
 func GetCommands(conf *Config) map[string]cliCommand {
@@ -38,7 +32,7 @@ func GetCommands(conf *Config) map[string]cliCommand {
 		"mapb": {
 			Name:					"mapb",
 			Description: 	"Displays the previous 20 locations",
-			Callback: 		CommandMap,
+			Callback: 		CommandMapb,
 		},
 	}
 }

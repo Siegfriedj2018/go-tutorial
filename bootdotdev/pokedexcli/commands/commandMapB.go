@@ -6,11 +6,9 @@ import (
 	"go-tutorial/bootdotdev/pokedexcli/internal"
 )
 
-func CommandMap(conf *Config) error {
+func CommandMapb(conf *Config) error {
 	url := "https://pokeapi.co/api/v2/location-area"
-	if conf.Next != nil {
-		url = *conf.Next
-	}
+	
 	
 	response, err := internal.Connection(url)
 	if err != nil {
@@ -21,7 +19,7 @@ func CommandMap(conf *Config) error {
 		fmt.Println("\t", result.Name)
 	}
 
-	conf.Next = response.Next
+	conf.Next = response.Previous
 	conf.Previous = response.Previous
 	return nil
 }

@@ -3,29 +3,39 @@ package internal
 import (
 	"encoding/json"
 	"io"
-	"log"
+	"fmt"
 	"net/http"
-
-	"bootdotdev/pokedexcli/commands"
 )
 
-func Connection() *commands.Config {
-	log.Println("Connecting to Pokedex...")
-	res, err := http.Get("https://pokeapi.co/api/v2/location-area/?offset=0&limit=20")
+type LocationArea struct {
+	Count    int       `json:"count"`
+	Next     *string   `json:"next"`
+	Previous *string   `json:"previous"`
+	Results  []Results `json:"results"`
+}
+type Results struct {
+	Name string `json:"name"`
+	URL  string `json:"url"`
+}
+
+
+func Connection(url string) (*LocationArea, error) {
+	fmt.Println("Connecting to Pokedex...")
+	res, err := http.Get(url)
 	if err != nil || res.StatusCode > 299 {
-		log.Fatal("status code: ", res.StatusCode, "\nerror: ", err)
+		return &LocationArea{}, fmt.Errorf("status code: %d\nerror: %w", res.StatusCode, err)
 	}
 	defer res.Body.Close()
 	
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		log.Fatal(err)
+		return &LocationArea{}, fmt.Errorf("error reading the body:: %w", err)
 	}
 
-	var conf *commands.Config
-	if err := json.Unmarshal(body, &conf); err != nil {
-		log.Fatalf("Error unmarshalling json: %v", err)
+	var locations *LocationArea
+	if err := json.Unmarshal(body, &locations); err != nil {
+		return &LocationArea{}, fmt.Errorf("error unmarshalling json: %w", err)
 	}
 	
-	return conf
+	return locations, nil
 }
