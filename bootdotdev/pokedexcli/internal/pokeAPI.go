@@ -2,9 +2,11 @@ package internal
 
 import (
 	"encoding/json"
-	"io"
 	"fmt"
+	"io"
+	"log"
 	"net/http"
+	"time"
 )
 
 type LocationArea struct {
@@ -17,10 +19,11 @@ type Results struct {
 	Name string `json:"name"`
 	URL  string `json:"url"`
 }
-
+ 
 
 func Connection(url string) (*LocationArea, error) {
-	fmt.Println("Connecting to Pokedex...")
+	pokeCashe := NewCache(5 * time.Minute)
+	log.Println("Connecting to Pokedex...")
 	res, err := http.Get(url)
 	if err != nil || res.StatusCode > 299 {
 		return &LocationArea{}, fmt.Errorf("status code: %d\nerror: %w", res.StatusCode, err)

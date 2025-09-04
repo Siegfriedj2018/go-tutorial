@@ -26,12 +26,12 @@ func GetCommands(conf *Config) map[string]cliCommand {
 		},
 		"map": {
 			Name:					"map",
-			Description: 	"Displays the next 20 locaions",
+			Description: 	"Displays the next 20 locaions, if applicable",
 			Callback: 		CommandMap,	
 		},
 		"mapb": {
 			Name:					"mapb",
-			Description: 	"Displays the previous 20 locations",
+			Description: 	"Displays the previous 20 locations, if applicable",
 			Callback: 		CommandMapb,
 		},
 	}
