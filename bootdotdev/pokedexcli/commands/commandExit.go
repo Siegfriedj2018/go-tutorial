@@ -1,11 +1,12 @@
 package commands
 
 import (
-	"os"
 	"fmt"
+	"go-tutorial/bootdotdev/pokedexcli/internal"
+	"os"
 )
 
-func CommandExit(conf *Config) error {
+func CommandExit(conf *Config, cache *internal.Cache) error {
 	fmt.Println("Closing the Pokedex... Goodbye!")
 	os.Exit(0)
 	return nil

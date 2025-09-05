@@ -1,10 +1,13 @@
 package commands
 
+import (
+	"go-tutorial/bootdotdev/pokedexcli/internal"
+)
 
 type cliCommand struct {
 	Name				string
 	Description string
-	Callback		func(*Config) error
+	Callback		func(*Config, *internal.Cache) error
 }
 
 type Config struct {
@@ -12,7 +15,7 @@ type Config struct {
 	Previous 	*string
 }
 
-func GetCommands(conf *Config) map[string]cliCommand {
+func GetCommands(conf *Config, cache *internal.Cache) map[string]cliCommand {
 	return map[string]cliCommand{
 		"exit": {
 			Name:					"exit",

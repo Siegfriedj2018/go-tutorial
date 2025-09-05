@@ -6,7 +6,7 @@ import (
 	"go-tutorial/bootdotdev/pokedexcli/internal"
 )
 
-func CommandMap(conf *Config) error {
+func CommandMap(conf *Config, cache *internal.Cache) error {
 	url := "https://pokeapi.co/api/v2/location-area"
 	if conf.Next != nil {
 		url = *conf.Next
@@ -14,7 +14,7 @@ func CommandMap(conf *Config) error {
 		fmt.Println("You have reached the end of the map locations, starting over...")
 	}
 	
-	response, err := internal.Connection(url)
+	response, err := internal.Connection(url, cache)
 	if err != nil {
 		return err
 	}
@@ -28,7 +28,7 @@ func CommandMap(conf *Config) error {
 	return nil
 }
 
-func CommandMapb(conf *Config) error {
+func CommandMapb(conf *Config, cache *internal.Cache) error {
 	url := "https://pokeapi.co/api/v2/location-area"
 	if conf.Previous != nil {
 		url = *conf.Previous
@@ -36,7 +36,7 @@ func CommandMapb(conf *Config) error {
 		fmt.Println("You have reached the beginning")
 	}
 	
-	response, err := internal.Connection(url)
+	response, err := internal.Connection(url, cache)
 	if err != nil {
 		return err
 	}

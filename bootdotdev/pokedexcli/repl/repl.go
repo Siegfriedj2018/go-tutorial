@@ -4,13 +4,16 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"time"
 
 	"go-tutorial/bootdotdev/pokedexcli/commands"
+	"go-tutorial/bootdotdev/pokedexcli/internal"
 	"go-tutorial/bootdotdev/pokedexcli/pokedex"
 )
 
 func StartRepl() {
 	conf := &commands.Config{}
+	pokeCash := *internal.NewCache(5 * time.Minute)
 	fmt.Println("Welcome to the Pokedex!")
 	scanner := bufio.NewScanner(os.Stdin)
 	for {
@@ -18,9 +21,9 @@ func StartRepl() {
 		scanner.Scan()
 		cleanedInput, _ := pokedex.CleanInput(scanner.Text())
 		
-		cmd, ok := commands.GetCommands(conf)[cleanedInput[0]]
+		cmd, ok := commands.GetCommands(conf, &pokeCash)[cleanedInput[0]]
 		if ok {
-			err := cmd.Callback(conf)
+			err := cmd.Callback(conf, &pokeCash)
 			if err != nil {
 				fmt.Printf("an unexpected error happened: %v\n", err)
 				os.Exit(1)
