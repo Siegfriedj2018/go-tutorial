@@ -4,16 +4,19 @@ import (
 	"strings"
 )
 type CurrentCommand struct {
-	Current		*string
-	Previous	*string
+	Current		string
+	UserInput	[]string
 }
 
-func CleanInput(text string) ([]string, CurrentCommand) {
+func CleanInput(text string) CurrentCommand {
 	if len(text) == 0 {
-		return []string{}, CurrentCommand{}
+		return CurrentCommand{}
 	}
 	lowChar := strings.ToLower(text)
 	output := strings.Fields(lowChar)
-	curCMD := CurrentCommand{&output[0], nil}
-	return output, curCMD
+	curCMD := CurrentCommand{
+		Current:		output[0],
+		UserInput:	output[1:],
+	}
+	return curCMD
 }

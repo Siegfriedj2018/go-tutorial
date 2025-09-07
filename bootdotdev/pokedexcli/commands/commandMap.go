@@ -28,7 +28,7 @@ func CommandMap(conf *Config, cache *internal.Cache) error {
 	return nil
 }
 
-func CommandMapb(conf *Config, cache *internal.Cache) error {
+func CommandMapb(conf *Config, cache *internal.Cache, extra ...string) error {
 	url := "https://pokeapi.co/api/v2/location-area"
 	if conf.Previous != nil {
 		url = *conf.Previous

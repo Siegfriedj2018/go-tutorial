@@ -25,8 +25,9 @@ func NewCache(interval time.Duration) *Cache {
 		cash:     make(map[string]cacheEntry),
 		interval: interval,
 	}
-	// Hint: This is where you'll start your background loop!
-	c.reapLoop()
+	
+	// this is a blocking go routine
+	go c.reapLoop()
 	return c
 }
 
@@ -36,8 +37,8 @@ func (c *Cache) Add(key string, val []byte) {
 	log.Println("adding cash")
 	// Your logic will go here!
 	c.cash[key] = cacheEntry{
-		createdAt: 	time.Now(),
-		val:				val,
+		createdAt: time.Now(),
+		val:       val,
 	}
 }
 
@@ -46,24 +47,22 @@ func (c *Cache) Get(key string) ([]byte, bool) {
 	defer c.mu.Unlock()
 	log.Print("getting cash")
 	data, exists := c.cash[key]
-	
+
 	return data.val, exists
 }
 
 func (c *Cache) reapLoop() {
 	// Hint: Create your ticker here.
 	cleanUpTick := time.Tick(c.interval)
-	// Then, start a loop that waits for ticks.
-	go func() {
-		for range cleanUpTick {
-			c.mu.Lock()
-			for key, val := range c.cash {
-				duration := time.Since(val.createdAt)
-				if duration >= c.interval {
-					delete(c.cash, key)
-				}
+
+	for range cleanUpTick {
+		c.mu.Lock()
+		for key, val := range c.cash {
+			duration := time.Since(val.createdAt)
+			if duration >= c.interval {
+				delete(c.cash, key)
 			}
-			c.mu.Unlock()
 		}
-	}()
+		c.mu.Unlock()
+	}
 }

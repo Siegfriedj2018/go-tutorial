@@ -7,7 +7,7 @@ import (
 type cliCommand struct {
 	Name				string
 	Description string
-	Callback		func(*Config, *internal.Cache) error
+	Callback		func(*Config, *internal.Cache, ...string) error
 }
 
 type Config struct {
@@ -15,7 +15,7 @@ type Config struct {
 	Previous 	*string
 }
 
-func GetCommands(conf *Config, cache *internal.Cache) map[string]cliCommand {
+func GetCommands(conf *Config, cache *internal.Cache, extra ...string) map[string]cliCommand {
 	return map[string]cliCommand{
 		"exit": {
 			Name:					"exit",
@@ -36,6 +36,11 @@ func GetCommands(conf *Config, cache *internal.Cache) map[string]cliCommand {
 			Name:					"mapb",
 			Description: 	"Displays the previous 20 locations, if applicable",
 			Callback: 		CommandMapb,
+		},
+		"explore": {
+			Name:					"explore",
+			Description: 	"Displays the pokemon found in specified location",
+			Callback: 		CommandExplore,
 		},
 	}
 }

@@ -5,7 +5,7 @@ import (
 	"go-tutorial/bootdotdev/pokedexcli/internal"
 )
 
-func CommandHelp(conf *Config, cache *internal.Cache) error {
+func CommandHelp(conf *Config, cache *internal.Cache, extra ...string) error {
 	fmt.Println("Welcome to the Pokedex!")
 	fmt.Println("Usage:")
 	fmt.Println()

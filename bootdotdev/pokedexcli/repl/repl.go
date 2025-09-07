@@ -19,9 +19,9 @@ func StartRepl() {
 	for {
 		fmt.Print("Pokedex > ")
 		scanner.Scan()
-		cleanedInput, _ := pokedex.CleanInput(scanner.Text())
+		cleanedInput := pokedex.CleanInput(scanner.Text())
 		
-		cmd, ok := commands.GetCommands(conf, &pokeCash)[cleanedInput[0]]
+		cmd, ok := commands.GetCommands(conf, &pokeCash, cleanedInput.UserInput...)[cleanedInput.Current]
 		if ok {
 			err := cmd.Callback(conf, &pokeCash)
 			if err != nil {
@@ -29,7 +29,7 @@ func StartRepl() {
 				os.Exit(1)
 			}
 		}else {
-			fmt.Printf("Unknown Command: %s\n", cleanedInput[0])
+			fmt.Printf("Unknown Command: %s\n", cleanedInput.Current)
 		}
 	}
 }

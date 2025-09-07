@@ -20,7 +20,6 @@ type Results struct {
 }
 
 
-
 func Connection(url string, cache *Cache) (*LocationArea, error) {
 	body, ok := cache.Get(url)
 
