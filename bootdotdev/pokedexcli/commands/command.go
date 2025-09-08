@@ -15,7 +15,7 @@ type Config struct {
 	Previous 	*string
 }
 
-func GetCommands(conf *Config, cache *internal.Cache, extra ...string) map[string]cliCommand {
+func GetCommands() map[string]cliCommand {
 	return map[string]cliCommand{
 		"exit": {
 			Name:					"exit",

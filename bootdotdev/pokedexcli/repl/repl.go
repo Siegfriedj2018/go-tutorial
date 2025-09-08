@@ -21,9 +21,9 @@ func StartRepl() {
 		scanner.Scan()
 		cleanedInput := pokedex.CleanInput(scanner.Text())
 		
-		cmd, ok := commands.GetCommands(conf, &pokeCash, cleanedInput.UserInput...)[cleanedInput.Current]
+		cmd, ok := commands.GetCommands()[cleanedInput.Current]
 		if ok {
-			err := cmd.Callback(conf, &pokeCash)
+			err := cmd.Callback(conf, &pokeCash, cleanedInput.UserInput...)
 			if err != nil {
 				fmt.Printf("an unexpected error happened: %v\n", err)
 				os.Exit(1)

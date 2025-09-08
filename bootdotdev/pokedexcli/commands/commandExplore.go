@@ -7,5 +7,7 @@ import (
 )
 
 func CommandExplore(conf *Config, cash *internal.Cache, locations ...string) error {
+	
+	
 	return nil
 }

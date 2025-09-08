@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// I know its cache
+
 type Cache struct {
 	mu       sync.Mutex
 	cash     map[string]cacheEntry

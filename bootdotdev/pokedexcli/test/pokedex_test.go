@@ -33,15 +33,15 @@ func TestCleanInput(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		actual, _ := pokedexcli.CleanInput(c.input)
+		actual := pokedexcli.CleanInput(c.input)
 		//Check the length of the actual slice against the expected slice
 		// if they don't match, use t.Errorf to print an error mesage
 		// and fail the test
-		if len(actual) != len(c.expected) {
+		if (len(actual.Current) + len(actual.UserInput)) != len(c.expected) {
 			t.Errorf("clean input length != expected length, %v != %v", actual, c.expected)
 		}
-		for i := range actual {
-			word := actual[i]
+		for i := range actual.UserInput {
+			word := actual.UserInput[i]
 			expectedWord := c.expected[i]
 			// Check each word in the slice 
 			// if they don't match, use t.Errorf to print an error mesage

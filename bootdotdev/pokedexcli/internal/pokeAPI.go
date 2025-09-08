@@ -8,17 +8,6 @@ import (
 	"net/http"
 )
 
-type LocationArea struct {
-	Count    int       `json:"count"`
-	Next     *string   `json:"next"`
-	Previous *string   `json:"previous"`
-	Results  []Results `json:"results"`
-}
-type Results struct {
-	Name string `json:"name"`
-	URL  string `json:"url"`
-}
-
 
 func Connection(url string, cache *Cache) (*LocationArea, error) {
 	body, ok := cache.Get(url)
@@ -45,4 +34,8 @@ func Connection(url string, cache *Cache) (*LocationArea, error) {
 	}
 	
 	return locations, nil
+}
+
+func RetrievePokemon() (*EncounterMethod, error) {
+	
 }

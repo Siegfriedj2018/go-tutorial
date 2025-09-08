@@ -6,7 +6,7 @@ import (
 	"go-tutorial/bootdotdev/pokedexcli/internal"
 )
 
-func CommandMap(conf *Config, cache *internal.Cache) error {
+func CommandMap(conf *Config, cache *internal.Cache,) error {
 	url := "https://pokeapi.co/api/v2/location-area"
 	if conf.Next != nil {
 		url = *conf.Next
