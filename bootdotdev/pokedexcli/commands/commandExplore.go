@@ -8,7 +8,7 @@ import (
 
 func CommandExplore(conf *Config, cash *internal.Cache, locations ...string) error {
 	if locations[0] == "" {
-		return fmt.Errorf("You have not provided a location, type help for usage")
+		return fmt.Errorf("you have not provided a location, type help for usage")
 	}
 
 	url := internal.BaseURL + "location-area/" + locations[0]
@@ -22,8 +22,8 @@ func CommandExplore(conf *Config, cash *internal.Cache, locations ...string) err
 	
 	fmt.Println("Found Pokemon:")
 	for idx, result := range res.PokemonEncounters {
-		fmt.Printf("%d. %s\n", idx+1, result.Pokemon)
+		fmt.Printf("%d. %s\n", idx+1, result.Pokemon.Name)
 	}
-	
+
 	return nil
 }

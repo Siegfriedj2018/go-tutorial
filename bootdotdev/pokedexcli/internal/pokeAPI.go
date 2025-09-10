@@ -37,7 +37,7 @@ func Connection(url string, cache *Cache) (*LocationArea, error) {
 	return locations, nil
 }
 
-func RetrievePokemon(url string, cache *Cache) (*EncounterMethod, error) {
+func RetrievePokemon(url string, cache *Cache) (*EncounterMethods, error) {
 	body, ok := cache.Get(url)
 	
 	if !ok {
@@ -45,13 +45,13 @@ func RetrievePokemon(url string, cache *Cache) (*EncounterMethod, error) {
 
 		res, err := http.Get(url)
 		if err != nil || res.StatusCode > 299 {
-			return &EncounterMethod{}, fmt.Errorf("status code: %d\nerror: %w", res.StatusCode, err)
+			return &EncounterMethods{}, fmt.Errorf("status code: %d\nerror: %w", res.StatusCode, err)
 		}
 		defer res.Body.Close()
 
 		body, err = io.ReadAll(res.Body)
 		if err != nil {
-			return &EncounterMethod{}, fmt.Errorf("error reading the body: %w", err)
+			return &EncounterMethods{}, fmt.Errorf("error reading the body: %w", err)
 		}
 		cache.Add(url, body)
 	}
