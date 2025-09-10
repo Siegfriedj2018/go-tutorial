@@ -35,7 +35,7 @@ func (c *Cache) Add(key string, val []byte) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	log.Println("adding cash")
-	// Your logic will go here!
+	
 	c.cash[key] = cacheEntry{
 		createdAt: time.Now(),
 		val:       val,
@@ -52,7 +52,7 @@ func (c *Cache) Get(key string) ([]byte, bool) {
 }
 
 func (c *Cache) reapLoop() {
-	// Hint: Create your ticker here.
+	
 	cleanUpTick := time.Tick(c.interval)
 
 	for range cleanUpTick {

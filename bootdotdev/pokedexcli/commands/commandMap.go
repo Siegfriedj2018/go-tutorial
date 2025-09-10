@@ -6,8 +6,8 @@ import (
 	"go-tutorial/bootdotdev/pokedexcli/internal"
 )
 
-func CommandMap(conf *Config, cache *internal.Cache,) error {
-	url := "https://pokeapi.co/api/v2/location-area"
+func CommandMap(conf *Config, cache *internal.Cache, extra ...string) error {
+	url := internal.BaseURL + "location-area"
 	if conf.Next != nil {
 		url = *conf.Next
 	} else {
@@ -19,8 +19,8 @@ func CommandMap(conf *Config, cache *internal.Cache,) error {
 		return err
 	}
 	fmt.Println("Locations:")
-	for _, result := range response.Results {
-		fmt.Println("\t", result.Name)
+	for idx, result := range response.Results {
+		fmt.Printf("  %d. %s\n", idx+1, result.Name)
 	}
 
 	conf.Next = response.Next
@@ -29,7 +29,7 @@ func CommandMap(conf *Config, cache *internal.Cache,) error {
 }
 
 func CommandMapb(conf *Config, cache *internal.Cache, extra ...string) error {
-	url := "https://pokeapi.co/api/v2/location-area"
+	url := internal.BaseURL + "location-area"
 	if conf.Previous != nil {
 		url = *conf.Previous
 	} else {
@@ -41,8 +41,8 @@ func CommandMapb(conf *Config, cache *internal.Cache, extra ...string) error {
 		return err
 	}
 	fmt.Println("Locations:")
-	for _, result := range response.Results {
-		fmt.Println("\t", result.Name)
+	for idx, result := range response.Results {
+		fmt.Printf("  %d. %s\n", idx+1, result.Name)
 	}
 
 	conf.Next = response.Next

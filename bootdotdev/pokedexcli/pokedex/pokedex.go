@@ -4,8 +4,8 @@ import (
 	"strings"
 )
 type CurrentCommand struct {
-	Current		string
-	UserInput	[]string
+	CMD				string
+	ExtraCMD	[]string
 }
 
 func CleanInput(text string) CurrentCommand {
@@ -15,8 +15,8 @@ func CleanInput(text string) CurrentCommand {
 	lowChar := strings.ToLower(text)
 	output := strings.Fields(lowChar)
 	curCMD := CurrentCommand{
-		Current:		output[0],
-		UserInput:	output[1:],
+		CMD:			output[0],
+		ExtraCMD:	output[1:],
 	}
 	return curCMD
 }

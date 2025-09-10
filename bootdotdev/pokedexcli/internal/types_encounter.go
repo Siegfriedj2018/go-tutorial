@@ -1,6 +1,6 @@
 package internal
 
-type EncounterMethod struct {
+type EncounterMethods struct {
 	EncounterMethodRates []EncounterMethodRates `json:"encounter_method_rates"`
 	GameIndex            int                    `json:"game_index"`
 	ID                   int                    `json:"id"`
@@ -9,19 +9,33 @@ type EncounterMethod struct {
 	Names                []Names                `json:"names"`
 	PokemonEncounters    []PokemonEncounters    `json:"pokemon_encounters"`
 }
+
 type EncounterMethodRates struct {
-	EncounterMethod string `json:"encounter_method"`
-	VersionDetails  string `json:"version_details"`
+	EncounterMethods EncounterMethods 	`json:"encounter_method"`
+	EncounterVersion []EncounterVersion `json:"version_details"`
 }
+
+type EncounterMethod struct {
+	Name string	 `json:"name"`
+	Url  *string `json:"url"`
+}
+
+type EncounterVersion struct {
+	Rate		int 		`json:"rate"`
+	Version Version `json:"version"`
+}
+
+type Version struct {
+	Name string 	`json:"name"`
+	Url  *string 	`json:"url"`
+}
+
 type Location struct {
-	Name string `json:"name"`
-	URL  string `json:"url"`
+	Name string  `json:"name"`
+	Url  *string `json:"url"`
 }
+
 type Names struct {
-	Language string `json:"language"`
-	Name     string `json:"name"`
-}
-type PokemonEncounters struct {
-	Pokemon        string `json:"pokemon"`
-	VersionDetails string `json:"version_details"`
+	Name    	*string `json:"name"`
+	Language	
 }
