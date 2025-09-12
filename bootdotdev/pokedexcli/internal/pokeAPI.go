@@ -63,3 +63,30 @@ func RetrievePokemon(url string, cache *Cache) (*EncounterMethods, error) {
 	
 	return encounters, nil
 }
+
+func CatchPokemon(url string, cache *Cache) (*Pokemon, error) {
+	body, ok := cache.Get(url)
+
+	if !ok {
+		log.Println("Pokemon not in cache, connecting to Pokedex...")
+
+		res, err := http.Get(url)
+		if err != nil || res.StatusCode > 299 {
+			return &Pokemon{}, fmt.Errorf("status code: %d\nerror: %w", res.StatusCode, err)
+		}
+		defer res.Body.Close()
+
+		body, err = io.ReadAll(res.Body)
+		if err != nil {
+			return &Pokemon{}, fmt.Errorf("error reading the body: %w", err)
+		}
+		cache.Add(url, body)
+	}
+
+	var pokemon *Pokemon
+	if err := json.Unmarshal(body, &pokemon); err != nil {
+		return &Pokemon{}, fmt.Errorf("error unmarshalling json: %w", err)
+	}
+	
+	return pokemon, nil
+}
