@@ -2,12 +2,13 @@ package commands
 
 import (
 	"go-tutorial/bootdotdev/pokedexcli/internal"
+	"go-tutorial/bootdotdev/pokedexcli/pokedex"
 )
 
 type cliCommand struct {
 	Name				string
 	Description string
-	Callback		func(*Config, *internal.Cache, ...string) error
+	Callback		func(*Config, *internal.Cache, *pokedex.Pokedex, ...string) error
 }
 
 type Config struct {

@@ -4,9 +4,10 @@ import (
 	"fmt"
 
 	"go-tutorial/bootdotdev/pokedexcli/internal"
+	"go-tutorial/bootdotdev/pokedexcli/pokedex"
 )
 
-func CommandMap(conf *Config, cache *internal.Cache, extra ...string) error {
+func CommandMap(conf *Config, cache *internal.Cache, _ *pokedex.Pokedex, extra ...string) error {
 	url := internal.BaseURL + "location-area"
 	if conf.Next != nil {
 		url = *conf.Next
@@ -28,7 +29,7 @@ func CommandMap(conf *Config, cache *internal.Cache, extra ...string) error {
 	return nil
 }
 
-func CommandMapb(conf *Config, cache *internal.Cache, extra ...string) error {
+func CommandMapb(conf *Config, cache *internal.Cache, _ *pokedex.Pokedex, extra ...string) error {
 	url := internal.BaseURL + "location-area"
 	if conf.Previous != nil {
 		url = *conf.Previous

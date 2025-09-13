@@ -14,6 +14,7 @@ import (
 func StartRepl() {
 	conf := &commands.Config{}
 	pokeCash := *internal.NewCache(5 * time.Minute)
+	pokeDex := *pokedex.NewPokeDex()
 	fmt.Println("Welcome to the Pokedex!")
 	scanner := bufio.NewScanner(os.Stdin)
 	for {
@@ -23,7 +24,7 @@ func StartRepl() {
 		
 		cmd, ok := commands.GetCommands()[cleanedInput.CMD]
 		if ok {
-			err := cmd.Callback(conf, &pokeCash, cleanedInput.ExtraCMD...)
+			err := cmd.Callback(conf, &pokeCash, &pokeDex, cleanedInput.ExtraCMD...)
 			if err != nil {
 				fmt.Printf("an unexpected error happened: %v\n", err)
 				os.Exit(1)

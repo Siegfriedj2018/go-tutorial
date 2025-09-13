@@ -2,11 +2,12 @@ package commands
 
 import (
 	"fmt"
-	
+
 	"go-tutorial/bootdotdev/pokedexcli/internal"
+	"go-tutorial/bootdotdev/pokedexcli/pokedex"
 )
 
-func CommandExplore(conf *Config, cash *internal.Cache, locations ...string) error {
+func CommandExplore(conf *Config, cash *internal.Cache, _ *pokedex.Pokedex, locations ...string) error {
 	if locations[0] == "" {
 		return fmt.Errorf("you have not provided a location, type help for usage")
 	}
