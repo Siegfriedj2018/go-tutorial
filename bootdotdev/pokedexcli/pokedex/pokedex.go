@@ -33,6 +33,13 @@ func (poo *Pokedex) Add(key string, pooks internal.PokemonDetails) {
 	poo.CaughtPokemon[key] = pooks
 }
 
+func (poo *Pokedex) Get(key string) (*internal.PokemonDetails, bool) {
+	log.Println("retrieving Pokemon...")
+	data, ok := poo.CaughtPokemon[key]
+
+	return &data, ok
+}
+
 func CleanInput(text string) CurrentCommand {
 	if len(text) == 0 {
 		return CurrentCommand{}

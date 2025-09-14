@@ -18,11 +18,6 @@ type Config struct {
 
 func GetCommands() map[string]cliCommand {
 	return map[string]cliCommand{
-		"exit": {
-			Name:					"exit",
-			Description:	"Exit the Pokedex",
-			Callback:			CommandExit,
-		},
 		"help": {
 			Name:					"help",
 			Description: 	"Displays this help message",
@@ -47,6 +42,16 @@ func GetCommands() map[string]cliCommand {
 			Name:					"catch <Pokemon>",
 			Description:  "Catches a Pokemon and adds it to the Pokedex",
 			Callback:     CommandCatch,
+		},
+		"inspect": {
+			Name:					"inspect <Pokemon>",
+			Description: 	"Displays information on a pokemon specified",
+			Callback:			CommandInspect,
+		},
+		"exit": {
+			Name:					"exit",
+			Description:	"Exit the Pokedex",
+			Callback:			CommandExit,
 		},
 	}
 }

@@ -8,6 +8,9 @@ import (
 )
 
 func CommandCatch(conf *Config, cash *internal.Cache, pooDex *pokedex.Pokedex, pokemon ...string) error {
+	if len(pokemon) == 0 {
+		return fmt.Errorf("please enter a pokemon to catch, type help for usage")
+	}
 	url := internal.BaseURL + "pokemon/" + pokemon[0]
 
 	fmt.Printf("Throwing a Pokeball at %s...\n", pokemon[0])
