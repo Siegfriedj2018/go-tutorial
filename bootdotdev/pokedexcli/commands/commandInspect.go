@@ -8,13 +8,22 @@ import (
 
 func CommandInspect(conf *Config, cash *internal.Cache, pd *pokedex.Pokedex, pokeMon ...string) error {
 	if len(pokeMon) == 0 {
-		return fmt.Errorf("please enter a pokemon name, type help for usage.")
+		return fmt.Errorf("please enter a pokemon name, type help for usage")
 	}
-
-	data, ok := pd.Get(pokeMon[0])
+	url := internal.BaseURL + "pokemon/" + pokeMon[0]
+	data, ok := pd.Get(url)
 	if !ok {
-		return fmt.Errorf("you have not caught that pokemon")
+		fmt.Println("you have not caught that pokemon")
+		return nil
 	}
 
-	info := fmt.Sprintf("Name: %s\nHeight: %d\nWeight: %d\nStats:\n", data.Name)
+	fmt.Printf("Name: %s\nHeight: %d\nWeight: %d\nStats:\n", data.Name, data.Height, data.Weight)
+	for _, stat := range data.Stats {
+		fmt.Printf("  - %s: %d\n", stat.Stat.Name, stat.BaseStat)
+	}
+	fmt.Println("Types:")
+	for _, ty := range data.Types {
+		fmt.Printf("  - %s\n", ty.Type.Name)
+	}
+	return nil
 }

@@ -24,7 +24,7 @@ func CommandCatch(conf *Config, cash *internal.Cache, pooDex *pokedex.Pokedex, p
 	fmt.Printf("Catch Chace is: %.2f, random Catch: %.2f\n", catchChance, randCatch)
 
 	if randCatch <= catchChance {
-		fmt.Printf("%s was caught!\n", pokemon[0])
+		fmt.Printf("%s was caught!\nYou may now inspect it with the inspect command.\n", pokemon[0])
 		pooDex.Add(url, *res)
 	} else {
 		fmt.Printf("%s escaped!\n", pokemon[0])

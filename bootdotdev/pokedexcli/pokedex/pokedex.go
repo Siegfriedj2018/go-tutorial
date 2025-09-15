@@ -1,6 +1,7 @@
 package pokedex
 
 import (
+	"fmt"
 	"go-tutorial/bootdotdev/pokedexcli/internal"
 	"log"
 	"strings"
@@ -38,6 +39,20 @@ func (poo *Pokedex) Get(key string) (*internal.PokemonDetails, bool) {
 	data, ok := poo.CaughtPokemon[key]
 
 	return &data, ok
+}
+
+func (poke *Pokedex) GetAll() ([]string, error) {
+	if len(poke.CaughtPokemon) == 0 {
+		return []string{}, fmt.Errorf("you have not caught any pokemon, type help for command usage")
+	}
+	
+	pokes := make([]string, 0)
+
+	for _, name := range poke.CaughtPokemon {
+		pokes = append(pokes, name.Name)
+	}
+
+	return pokes, nil
 }
 
 func CleanInput(text string) CurrentCommand {

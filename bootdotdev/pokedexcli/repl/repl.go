@@ -26,11 +26,11 @@ func StartRepl() {
 		if ok {
 			err := cmd.Callback(conf, &pokeCash, &pokeDex, cleanedInput.ExtraCMD...)
 			if err != nil {
-				fmt.Printf("an unexpected error happened: %v\n", err)
+				fmt.Printf("an expected error happened: %v\n", err)
 				os.Exit(1)
 			}
 		}else {
-			fmt.Printf("Unknown Command: %s\n", cleanedInput.CMD)
+			fmt.Printf("Unknown Command: %s, type help for command usage\n", cleanedInput.CMD)
 		}
 	}
 }
