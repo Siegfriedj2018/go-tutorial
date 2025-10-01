@@ -17,8 +17,34 @@ type Config struct {
 	CurrentUser		string  `json:"current_user_name"`
 }
 
+type State struct {
+	Conf  *Config
+}
 
-func Read() Config {
+type command struct {
+	name	string
+	args	[]string
+}
+
+type commands struct {
+	cmds	map[string]func(*state, command) error
+}
+
+func (c *commands) run(s *state, cmd command) error {
+	comFunc, ok := c.cmds[cmd.name]
+	if !ok {
+		return fmt.Errorf("that is an invalid command, try again")
+	}
+  
+	err := comFunc(s, cmd)
+	return err
+}
+
+func (c *commands) register(name string, f func(*state, command)error) {
+	
+}
+
+func Read() *Config {
 	path, err := getConfigFilePath()
 	if err != nil {
 		log.Fatalf("there was an invalid filepath: %v", err)
@@ -65,4 +91,14 @@ func write(conf *Config) error {
 func (confData *Config) SetUser(username string) error {
 	confData.CurrentUser = username
 	return write(confData)
+}
+
+func handlerLogin(s *state, cmd command) error {
+	if len(cmd.args) == 0 {
+		return fmt.Errorf("you did not passed any arguments, command is gator login <name>")
+	}
+
+	err := s.conf.SetUser(cmd.args[0])
+	log.Println("user has been set to ", cmd.args[0])
+	return err
 }
