@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"strings"
 )
 
 const configFileName = ".gatorconfig.json"
@@ -16,39 +15,6 @@ const configFilePath = "/mnt/c/Users/siegf/SynologyDrive/Drive/Go_Tutorial/bootd
 type Config struct {
 	DbUrl 				string  `json:"db_url"`
 	CurrentUser		string  `json:"current_user_name"`
-}
-
-type State struct {
-	Conf  *Config
-}
-
-type Command struct {
-	Name	string
-	Args	[]string
-}
-
-type Commands struct {
-	Cmds	map[string]func(*State, Command) error
-}
-
-func (c *Commands) Run(s *State, cmd Command) error {
-	comFunc, ok := c.Cmds[cmd.Name]
-	if !ok {
-		return fmt.Errorf("that is an invalid command, try again")
-	}
-  
-	err := comFunc(s, cmd)
-	return err
-}
-
-func (c *Commands) Register(name string, f func(*State, Command)error) {
-	if c.Cmds == nil {
-		c.Cmds = make(map[string]func(*State, Command) error)
-	}
-
-	if strings.ToLower(name) == "login" {
-		c.Cmds[name] = f
-	}
 }
 
 func Read() *Config {
@@ -122,12 +88,3 @@ func (confData *Config) SetUser(username string) error {
 	return write(confData)
 }
 
-func HandlerLogin(s *State, cmd Command) error {
-	if len(cmd.Args) == 0 {
-		return fmt.Errorf("a username is required, please try again")
-	}
-
-	err := s.Conf.SetUser(cmd.Args[0])
-	log.Println("user has been set to ", cmd.Args[0])
-	return err
-}
