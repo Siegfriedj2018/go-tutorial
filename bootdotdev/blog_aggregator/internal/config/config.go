@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 const configFileName = ".gatorconfig.json"
@@ -21,17 +22,17 @@ type State struct {
 	Conf  *Config
 }
 
-type command struct {
-	name	string
-	args	[]string
+type Command struct {
+	Name	string
+	Args	[]string
 }
 
-type commands struct {
-	cmds	map[string]func(*state, command) error
+type Commands struct {
+	Cmds	map[string]func(*State, Command) error
 }
 
-func (c *commands) run(s *state, cmd command) error {
-	comFunc, ok := c.cmds[cmd.name]
+func (c *Commands) Run(s *State, cmd Command) error {
+	comFunc, ok := c.Cmds[cmd.Name]
 	if !ok {
 		return fmt.Errorf("that is an invalid command, try again")
 	}
@@ -40,8 +41,14 @@ func (c *commands) run(s *state, cmd command) error {
 	return err
 }
 
-func (c *commands) register(name string, f func(*state, command)error) {
-	
+func (c *Commands) Register(name string, f func(*State, Command)error) {
+	if c.Cmds == nil {
+		c.Cmds = make(map[string]func(*State, Command) error)
+	}
+
+	if strings.ToLower(name) == "login" {
+		c.Cmds[name] = f
+	}
 }
 
 func Read() *Config {
@@ -50,8 +57,8 @@ func Read() *Config {
 		log.Fatalf("there was an invalid filepath: %v", err)
 	}
 	
-	var configData Config
-	data, err := os.Open(path)
+	var configData *Config
+	data, err := os.Open(path[0])
 	if err != nil {
 		log.Fatalf("there was an error opening the file: %v", err)
 	}
@@ -67,9 +74,15 @@ func Read() *Config {
 	return configData
 }
 
-func getConfigFilePath() (string, error) {
+func getConfigFilePath() ([]string, error) {
+	userHome, err := os.UserHomeDir()
+	if err != nil {
+		return []string{}, fmt.Errorf("there was an err getting home dir: %w", err)
+	}
 	fullPath := filepath.Join(configFilePath, configFileName)
-	return fullPath, nil
+	testPath := filepath.Join(userHome, configFileName)
+	allpath := []string{fullPath, testPath}
+	return allpath, nil
 }
 
 func write(conf *Config) error {
@@ -78,9 +91,25 @@ func write(conf *Config) error {
 		return fmt.Errorf("there was an error getting config path: %w", err)
 	}
 
-	data, err := os.Create(path)
-	userData := json.NewEncoder(data)
+	dataRun, err := os.Create(path[0])
+	if err != nil {
+		return fmt.Errorf("err creating file: %w",err)
+	}
+	dataTest, err := os.Create(path[1])
+	if err != nil {
+		return fmt.Errorf("err creating file: %w",err)
+	}
+	defer dataRun.Close()
+	defer dataTest.Close()
+
+	userData := json.NewEncoder(dataRun)
 	err = userData.Encode(conf)
+	if err != nil {
+		return fmt.Errorf("there was an error encoding the data: %w", err)
+	}
+
+	serData := json.NewEncoder(dataTest)
+	err = serData.Encode(conf)
 	if err != nil {
 		return fmt.Errorf("there was an error encoding the data: %w", err)
 	}
@@ -93,12 +122,12 @@ func (confData *Config) SetUser(username string) error {
 	return write(confData)
 }
 
-func handlerLogin(s *state, cmd command) error {
-	if len(cmd.args) == 0 {
-		return fmt.Errorf("you did not passed any arguments, command is gator login <name>")
+func HandlerLogin(s *State, cmd Command) error {
+	if len(cmd.Args) == 0 {
+		return fmt.Errorf("a username is required, please try again")
 	}
 
-	err := s.conf.SetUser(cmd.args[0])
-	log.Println("user has been set to ", cmd.args[0])
+	err := s.Conf.SetUser(cmd.Args[0])
+	log.Println("user has been set to ", cmd.Args[0])
 	return err
 }
