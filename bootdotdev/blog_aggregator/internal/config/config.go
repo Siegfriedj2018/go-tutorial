@@ -23,14 +23,14 @@ func Read() *Config {
 		log.Fatalf("there was an invalid filepath: %v", err)
 	}
 	
-	var configData *Config
+	
 	data, err := os.Open(path[0])
 	if err != nil {
 		log.Fatalf("there was an error opening the file: %v", err)
 	}
 	defer data.Close()
 	
-
+	configData := &Config{}
 	decoder := json.NewDecoder(data)
 	err = decoder.Decode(&configData)
 	if err != nil {
@@ -51,7 +51,7 @@ func getConfigFilePath() ([]string, error) {
 	return allpath, nil
 }
 
-func write(conf *Config) error {
+func write(conf Config) error {
 	path, err := getConfigFilePath()
 	if err != nil {
 		return fmt.Errorf("there was an error getting config path: %w", err)
@@ -69,12 +69,14 @@ func write(conf *Config) error {
 	defer dataTest.Close()
 
 	userData := json.NewEncoder(dataRun)
+	userData.SetIndent("", "  ")
 	err = userData.Encode(conf)
 	if err != nil {
 		return fmt.Errorf("there was an error encoding the data: %w", err)
 	}
 
 	serData := json.NewEncoder(dataTest)
+	serData.SetIndent("", "  ")
 	err = serData.Encode(conf)
 	if err != nil {
 		return fmt.Errorf("there was an error encoding the data: %w", err)
@@ -85,6 +87,5 @@ func write(conf *Config) error {
 
 func (confData *Config) SetUser(username string) error {
 	confData.CurrentUser = username
-	return write(confData)
+	return write(*confData)
 }
-
