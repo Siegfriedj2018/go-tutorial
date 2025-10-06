@@ -36,6 +36,7 @@ func main() {
 	allCmds.register("register", handlerRegister)
 	allCmds.register("reset", handlerReset)
 	allCmds.register("users", handlerGetUsers)
+	allCmds.register("agg", handlerRss)
 	if len(os.Args) <= 1 {
 		log.Fatalf("please provide a command. e.g. 'login <username>'")
 	}

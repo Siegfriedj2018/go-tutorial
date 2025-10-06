@@ -64,7 +64,6 @@ func handlerReset(s *state, _ command) error {
 	err := s.db.DeleteUsers(ctx)
 	if err != nil {
 		log.Fatalf("there was an error deleting users: %v", err)
-		return err
 	}
 	log.Println("Users table was reset")
 	return nil
@@ -74,7 +73,6 @@ func handlerGetUsers(s *state, _ command) error {
 	users, err := s.db.GetUsers(context.Background())
 	if err != nil {
 		log.Fatalf("there was an error getting users: %v", err)
-		return err
 	}
 
 	for _, user := range users {
