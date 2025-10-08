@@ -68,3 +68,38 @@ func handlerFeeds(s *state, _ command) error {
 	
 	return nil
 }
+
+func handlerFollow(s *state, cmd command) error {
+	if len(cmd.Args) < 1 {
+		return fmt.Errorf("please add a url, Usage: follow <url>")
+	}
+	ctx := context.Background()
+	user, err := s.db.GetUser(ctx, s.conf.CurrentUser)
+	if err != nil {
+		return fmt.Errorf("there was an err with current users: %w", err)
+	}
+	feed, err := s.db.GetFeedByUrl(ctx, cmd.Args[0])
+	if err != nil {
+		return fmt.Errorf("err with the url: %w", err)
+	}
+
+	params := database.CreateFeedFollowsParams{
+		ID: 				uuid.New(),
+		CreatedAt: 	time.Now(),
+		UpdatedAt: 	time.Now(),
+		UserID: 		user.ID,
+		FeedID: 		feed.ID,
+	}
+
+	feedFollow, err := s.db.CreateFeedFollows(ctx, params)
+	if err != nil {
+		return fmt.Errorf("creating feed follow has an err: %w", err)
+	}
+
+	fmt.Printf("%v is now following %v", feedFollow.UserName, feedFollow.FeedName)
+	return nil
+}
+
+func handlerFollowing(s *state, _ command) error {
+	
+}

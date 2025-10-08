@@ -39,6 +39,8 @@ func main() {
 	allCmds.register("agg", handlerRss)
 	allCmds.register("addfeed", handlerFeed)
 	allCmds.register("feeds", handlerFeeds)
+	allCmds.register("follow", handlerFollow)
+	allCmds.register("following", handlerFollowing)
 	if len(os.Args) <= 1 {
 		log.Fatalf("please provide a command. e.g. 'login <username>'")
 	}
