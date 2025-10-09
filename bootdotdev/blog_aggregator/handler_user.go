@@ -65,6 +65,12 @@ func handlerReset(s *state, _ command) error {
 	if err != nil {
 		log.Fatalf("there was an error deleting users: %v", err)
 	}
+
+	err = s.conf.SetUser("")
+	if err != nil {
+		return err
+	}
+	log.Println("Removed current user")
 	log.Println("All tables were reset")
 	return nil
 }

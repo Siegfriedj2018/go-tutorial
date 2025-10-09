@@ -50,7 +50,21 @@ func handlerFeed(s *state, cmd command) error {
 	if err != nil {
 		return fmt.Errorf("failed to save feed to database: %w", err)
 	}
+  
+	params2 := database.CreateFeedFollowsParams{
+		ID: 				uuid.New(),
+		CreatedAt: 	time.Now(),
+		UpdatedAt: 	time.Now(),
+		UserID: 		users.ID,
+		FeedID: 		feed.ID,
+	}
 
+	_, err = s.db.CreateFeedFollows(context.Background(), params2)
+	if err != nil {
+		return fmt.Errorf("error following feed: %w", err)
+	} 
+	
+	fmt.Printf("User: %v\n", users.Name)
 	fmt.Printf("Feed records:\n - ID: %v\n - Created at: %v\n - Updated at: %v\n", feed.ID, feed.CreatedAt, feed.UpdatedAt)
 	fmt.Printf(" - Name: %v\n - Url: %v\n - User Id: %v\n", feed.Name, feed.Url, feed.UserID)
 	return nil
@@ -101,5 +115,20 @@ func handlerFollow(s *state, cmd command) error {
 }
 
 func handlerFollowing(s *state, _ command) error {
-	
+	currentUser, err := s.db.GetUser(context.Background(), s.conf.CurrentUser)
+	if err != nil {
+		return fmt.Errorf("error retrieving user: %w", err)
+	}
+
+	userFeeds, err := s.db.GetFeedFollowsForUser(context.Background(), currentUser.ID)
+	if err != nil {
+		return fmt.Errorf("error retrieving users feed: %w", err)
+	}
+
+	fmt.Printf("User: %v\n", currentUser.Name)
+	for _, feed := range userFeeds {
+		fmt.Printf(" - Feed: %v\n", feed.FeedName)
+	}
+
+	return nil
 }
