@@ -27,7 +27,7 @@ func handlerLogin(s *state, cmd command) error {
 	if err != nil {
 		return fmt.Errorf("couldn't set current user: %w", err)
 	}
-	log.Println("User has been set to", user.Name)
+	log.Printf("User %v has been logged in\n", user.Name)
 	return nil
 }
 

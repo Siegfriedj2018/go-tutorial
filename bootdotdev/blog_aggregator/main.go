@@ -37,10 +37,10 @@ func main() {
 	allCmds.register("reset", handlerReset)
 	allCmds.register("users", handlerGetUsers)
 	allCmds.register("agg", handlerRss)
-	allCmds.register("addfeed", handlerFeed)
+	allCmds.register("addfeed", middlewareLoggedIn(handlerFeed))
 	allCmds.register("feeds", handlerFeeds)
-	allCmds.register("follow", handlerFollow)
-	allCmds.register("following", handlerFollowing)
+	allCmds.register("follow", middlewareLoggedIn(handlerFollow))
+	allCmds.register("following", middlewareLoggedIn(handlerFollowing))
 	if len(os.Args) <= 1 {
 		log.Fatalf("please provide a command. e.g. 'login <username>'")
 	}
