@@ -41,6 +41,7 @@ func main() {
 	allCmds.register("feeds", handlerFeeds)
 	allCmds.register("follow", middlewareLoggedIn(handlerFollow))
 	allCmds.register("following", middlewareLoggedIn(handlerFollowing))
+	allCmds.register("unfollow", middlewareLoggedIn(handlerUnfollow))
 	if len(os.Args) <= 1 {
 		log.Fatalf("please provide a command. e.g. 'login <username>'")
 	}
