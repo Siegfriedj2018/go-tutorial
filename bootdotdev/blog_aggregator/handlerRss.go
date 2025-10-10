@@ -13,7 +13,7 @@ import (
 func handlerRss(s *state, _ command) error {
 	log.Println("Connecting to rss feed...")
 
-	url := "https://www.wagslane.dev/index.xml"
+	url := "https://eli.thegreenplace.net/feeds/all.atom.xml"
 	rss, err := fetchFeed(context.Background(), url)
 	if err != nil {
 		return fmt.Errorf("error fetching: %w", err)

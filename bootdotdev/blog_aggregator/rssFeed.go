@@ -66,3 +66,47 @@ func fetchFeed(ctx context.Context, feedUrl string) (*RSSFeed, error) {
 	}
 	return rssString, nil
 }
+
+	
+// Feed was generated 2025-10-10 15:10:07 by https://xml-to-go.github.io/ in Ukraine.
+/*type Feed struct {
+	XMLName xml.Name `xml:"feed"`
+	Text    string   `xml:",chardata"`
+	Title   string   `xml:"title"`
+	Link    []struct {
+		Text string `xml:",chardata"`
+		Href string `xml:"href,attr"`
+		Rel  string `xml:"rel,attr"`
+	} `xml:"link"`
+	ID      string `xml:"id"`
+	Updated string `xml:"updated"`
+	Entry   []struct {
+		Text  string `xml:",chardata"`
+		Title string `xml:"title"`
+		Link  struct {
+			Text string `xml:",chardata"`
+			Href string `xml:"href,attr"`
+			Rel  string `xml:"rel,attr"`
+		} `xml:"link"`
+		Published string `xml:"published"`
+		Updated   string `xml:"updated"`
+		Author    struct {
+			Text string `xml:",chardata"`
+			Name string `xml:"name"`
+		} `xml:"author"`
+		ID      string `xml:"id"`
+		Summary struct {
+			Text string `xml:",chardata"`
+			Type string `xml:"type,attr"`
+		} `xml:"summary"`
+		Content struct {
+			Text string `xml:",chardata"`
+			Type string `xml:"type,attr"`
+		} `xml:"content"`
+		Category []struct {
+			Text string `xml:",chardata"`
+			Term string `xml:"term,attr"`
+		} `xml:"category"`
+	} `xml:"entry"`
+} 
+*/
